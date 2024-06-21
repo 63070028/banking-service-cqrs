@@ -10,7 +10,6 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.stereotype.Component;
 
 @Aggregate
 public class BankAccountAggregate {
@@ -77,13 +76,15 @@ public class BankAccountAggregate {
     }
 
     @EventSourcingHandler
-    protected void on(InactiveAccountEvent inactiveAccountEvent){
-        this.errorMsg = inactiveAccountEvent.errorMsg;
+    protected void on(InactiveAccountEvent event){
+        this.id = event.id;
+        this.errorMsg = event.errorMsg;
     }
 
     @EventSourcingHandler
-    protected void on(HoldAccountEvent holdAccountEvent){
-        this.status = holdAccountEvent.status;
-        this.errorMsg = holdAccountEvent.errorMsg;
+    protected void on(HoldAccountEvent event){
+        this.id = event.id;
+        this.status = event.status;
+        this.errorMsg = event.errorMsg;
     }
 }

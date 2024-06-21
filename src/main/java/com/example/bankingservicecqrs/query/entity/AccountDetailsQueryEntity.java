@@ -1,6 +1,5 @@
 package com.example.bankingservicecqrs.query.entity;
 
-import com.example.bankingservicecqrs.util.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -10,7 +9,7 @@ import lombok.Data;
 public class AccountDetailsQueryEntity {
 
     public AccountDetailsQueryEntity() {}
-    public AccountDetailsQueryEntity(String id, double balance, Status status) {
+    public AccountDetailsQueryEntity(String id, double balance, String status) {
         this.id = id;
         this.balance = balance;
         this.status = status;
@@ -21,6 +20,6 @@ public class AccountDetailsQueryEntity {
 
     private double balance;
 
-    private Status status;
+    private String status;
 
 }
