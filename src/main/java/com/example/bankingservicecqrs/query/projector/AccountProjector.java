@@ -2,10 +2,12 @@ package com.example.bankingservicecqrs.query.projector;
 
 import com.example.bankingservicecqrs.command.DepositCommand;
 import com.example.bankingservicecqrs.command.event.*;
+import com.example.bankingservicecqrs.query.GetAccountDetailsByIdQuery;
 import com.example.bankingservicecqrs.query.entity.AccountDetailsQueryEntity;
 import com.example.bankingservicecqrs.query.repository.AccountDetailsRepository;
 import com.example.bankingservicecqrs.util.Status;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -59,6 +61,12 @@ public class AccountProjector {
             entity.get().setStatus(Status.HOLD.getValue());
             accountDetailsRepository.save(entity.get());
         }
+    }
+
+    @QueryHandler
+    public AccountDetailsQueryEntity on(GetAccountDetailsByIdQuery query){
+        Optional<AccountDetailsQueryEntity> entity = accountDetailsRepository.findById(query.id);
+        return entity.orElse(null);
     }
 
 }
